@@ -12,14 +12,20 @@ const apiClient = axios.create({
   },
 });
 
-export const searchRepositories = async (query: string, topic: string, sort: string,order: string, page: number) => {
+export const searchRepositories = async (
+  query: string,
+  topic: string,
+  sort: string,
+  order: string,
+  page: number
+) => {
   const response = await apiClient.get("/search/repositories", {
     params: {
       q: `${query}+topic:${topic}`,
       sort,
       order,
       per_page: 10,
-      page
+      page,
     },
   });
   return response;
@@ -28,4 +34,14 @@ export const searchRepositories = async (query: string, topic: string, sort: str
 export const getRepositoryDetails = async (owner: string, repo: string) => {
   const response = await apiClient.get(`/repos/${owner}/${repo}`);
   return response;
-}
+};
+
+export const getContributorList = async (owner: string, repo: string) => {
+  const response = await apiClient.get(`/repos/${owner}/${repo}/contributors`);
+  return response;
+};
+
+export const getAppliedLanguages = async (owner: string, repo: string) => {
+  const response = await apiClient.get(`/repos/${owner}/${repo}/languages`);
+  return response;
+};

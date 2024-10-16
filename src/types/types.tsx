@@ -26,4 +26,6 @@ export interface RepositoryListProps {
 
 export interface RepositoryDetailsProps {
   repositoryDetails: any;
+  contributors: any[];
+  appliedLanguages: Record<string, number> | null;
 }
