@@ -1,18 +1,17 @@
 import React from "react";
 import { SearchBarProps } from "../../types/types";
-import { StyledSearchBar } from "./style";
+import { Input, SearchBarContainer } from "./style";
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  onSearchChange,
-  query,
-}) => {
+const SearchBar: React.FC<SearchBarProps> = ({ onSearchChange, query }) => {
   return (
-    <StyledSearchBar
-      type="text"
-      placeholder="Search repositories..."
-      onChange={onSearchChange}
-      value={query}
-    ></StyledSearchBar>
+    <SearchBarContainer>
+      <Input
+        type="text"
+        value={query}
+        onChange={onSearchChange}
+        placeholder="Search repositories..."
+      />
+    </SearchBarContainer>
   );
 };
 

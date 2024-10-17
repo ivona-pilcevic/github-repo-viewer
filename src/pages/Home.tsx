@@ -10,6 +10,7 @@ const Home = () => {
   const [repositories, setRepositories] = useState<any[]>([]);
   const [query, setQuery] = useState<string>("");
   const [topic, setTopic] = useState<string>("React");
+  const [selectedTopic, setSelectedTopic] = useState<string>("React");
   const [sort, setSort] = useState<string>("stars");
   const [order, setOrder] = useState<string>("desc");
   const [page, setPage] = useState<number>(1);
@@ -53,6 +54,7 @@ const Home = () => {
 
   const onTopicChange = (topic: string) => {
     setTopic(topic);
+    setSelectedTopic(topic);
   };
 
   const onSortChange = (sort: string) => {
@@ -72,14 +74,27 @@ const Home = () => {
   return (
     <>
       <SearchBar onSearchChange={onSearchChange} query={query} />
-      <TopicTabs topics={topics} onTopicChange={onTopicChange} />
-      <Dropdown options={sortOptions} onOptionChange={onSortChange} />
-      <Dropdown options={orderOptions} onOptionChange={onOrderChange} />
+      <TopicTabs
+        topics={topics}
+        onTopicChange={onTopicChange}
+        selectedTopic={selectedTopic}
+      />
+      <Dropdown
+        options={sortOptions}
+        onOptionChange={onSortChange}
+        label="Sort by"
+      />
+      <Dropdown
+        options={orderOptions}
+        onOptionChange={onOrderChange}
+        label="Order"
+      />
       <RepositoryList
         repositories={repositories}
         page={page}
         changePage={changePage}
         totalPages={totalPages}
+        loading={loading}
       />
     </>
   );

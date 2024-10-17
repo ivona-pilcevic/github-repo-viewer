@@ -4,15 +4,42 @@ export const renderPagination = (
   totalPages: number
 ) => {
   const pagination = [];
+  const buttonStyle = {
+    backgroundColor: "#58a6ff",
+    color: "#ffffff",
+    border: "none",
+    borderRadius: "5px",
+    padding: "10px 15px",
+    margin: "0 5px",
+    cursor: "pointer",
+    transition: "background-color 0.3s",
+  };
+
+  const activeButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: "#ccc",
+  };
+
+  const handleButtonClick = (pageNum: number) => {
+    changePage(pageNum);
+  };
 
   if (page > 1) {
     pagination.push(
-      <button key="first" onClick={() => changePage(1)}>
+      <button
+        key="first"
+        onClick={() => handleButtonClick(1)}
+        style={buttonStyle}
+      >
         First
       </button>
     );
     pagination.push(
-      <button key="prev" onClick={() => changePage(page - 1)}>
+      <button
+        key="prev"
+        onClick={() => handleButtonClick(page - 1)}
+        style={buttonStyle}
+      >
         Previous
       </button>
     );
@@ -20,7 +47,11 @@ export const renderPagination = (
 
   if (page > 3) {
     pagination.push(
-      <button key="page-1" onClick={() => changePage(1)}>
+      <button
+        key="page-1"
+        onClick={() => handleButtonClick(1)}
+        style={buttonStyle}
+      >
         1
       </button>
     );
@@ -35,10 +66,8 @@ export const renderPagination = (
     pagination.push(
       <button
         key={`page-${i}`}
-        onClick={() => changePage(i)}
-        style={{
-          backgroundColor: i === page ? "#ccc" : "#fff",
-        }}
+        onClick={() => handleButtonClick(i)}
+        style={i === page ? activeButtonStyle : buttonStyle}
       >
         {i}
       </button>
@@ -47,7 +76,11 @@ export const renderPagination = (
   if (page < totalPages - 2) {
     pagination.push(<span key="dots2">...</span>);
     pagination.push(
-      <button key={`page-${totalPages}`} onClick={() => changePage(totalPages)}>
+      <button
+        key={`page-${totalPages}`}
+        onClick={() => handleButtonClick(totalPages)}
+        style={buttonStyle}
+      >
         {totalPages}
       </button>
     );
@@ -55,12 +88,20 @@ export const renderPagination = (
 
   if (page < totalPages) {
     pagination.push(
-      <button key="next" onClick={() => changePage(page + 1)}>
+      <button
+        key="next"
+        onClick={() => handleButtonClick(page + 1)}
+        style={buttonStyle}
+      >
         Next
       </button>
     );
     pagination.push(
-      <button key="last" onClick={() => changePage(totalPages)}>
+      <button
+        key="last"
+        onClick={() => handleButtonClick(totalPages)}
+        style={buttonStyle}
+      >
         Last
       </button>
     );

@@ -9,16 +9,31 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: #1b1f23; 
+    color: #c9d1d9;
   }
 
-  h1, h2 {
+  h1, h2, h3 {
+    color: #58a6ff; /* Svetloplava za naslove */
     font-weight: bold;
   }
 
   a {
+    color: #9ecbff;
     text-decoration: none;
-    color: inherit;
+  }
+
+  button {
+    background-color: #238636; 
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background-color: #2ea043; 
+    }
   }
 `;

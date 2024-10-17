@@ -10,11 +10,13 @@ export interface SearchBarProps {
 export interface TopicTabsProps {
   topics: Option[];
   onTopicChange: (topic: string) => void;
+  selectedTopic: string;
 }
 
 export interface DropdownProps {
   options: Option[];
   onOptionChange: (option: string) => void;
+  label: string;
 }
 
 export interface RepositoryListProps {
@@ -22,6 +24,7 @@ export interface RepositoryListProps {
   page: number;
   changePage: (newPage: number) => void;
   totalPages: number;
+  loading: boolean;
 }
 
 export interface RepositoryDetailsProps {

@@ -6,11 +6,15 @@ import {
 } from "../api/githubApi";
 import { useParams } from "react-router-dom";
 import RepoDetails from "../components/RepoDetails";
+import { ClipLoader } from "react-spinners";
+import { LoaderWrapper } from "../styles/wrappers";
 
 const RepositoryDetails: React.FC = () => {
   const [repoDetails, setRepoDetails] = useState<any>(null);
   const [contributorList, setContributorList] = useState<any[]>([]);
-  const [appliedLanguages, setAppliedLanguages] = useState<Record<string, number>>({});
+  const [appliedLanguages, setAppliedLanguages] = useState<
+    Record<string, number>
+  >({});
 
   const { owner = "", repo = "" } = useParams<{
     owner: string;
@@ -39,7 +43,11 @@ const RepositoryDetails: React.FC = () => {
   }, []);
 
   if (!repoDetails) {
-    return <div>Loading...</div>;
+    return (
+      <LoaderWrapper>
+        <ClipLoader color="#58a6ff" size={50} />
+      </LoaderWrapper>
+    );
   }
 
   return (

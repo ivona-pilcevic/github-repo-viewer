@@ -1,12 +1,23 @@
 import { TopicTabsProps } from "../../types/types";
+import { TabButton, TabsContainer } from "./style";
 
-const TopicTabs: React.FC<TopicTabsProps> = ({ topics, onTopicChange }) => {
+const TopicTabs: React.FC<TopicTabsProps> = ({
+  topics,
+  onTopicChange,
+  selectedTopic,
+}) => {
   return (
-    <div>
+    <TabsContainer>
       {topics.map((topic) => (
-        <h4 onClick={() => onTopicChange(topic.value)}>{topic.label}</h4>
+        <TabButton
+          key={topic.value}
+          isActive={selectedTopic === topic.value}
+          onClick={() => onTopicChange(topic.value)}
+        >
+          {topic.label}
+        </TabButton>
       ))}
-    </div>
+    </TabsContainer>
   );
 };
 

@@ -1,37 +1,65 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { RepositoryListProps } from "../../types/types";
 import { renderPagination } from "../../utils/renderPagination";
-import { RepositoryListItem } from "./style";
+import { AvatarImage, RepoCell, RepoHeader, RepoRow, RepoTable } from "./style";
+import { ClipLoader } from "react-spinners";
+import { LoaderWrapper, PaginationWrapper } from "../../styles/wrappers";
 
 const RepositoryList: React.FC<RepositoryListProps> = ({
   repositories,
   page,
   changePage,
   totalPages,
+  loading,
 }) => {
+  const navigate = useNavigate();
+
+  const handleRowClick = (owner: string, repo: string) => {
+    navigate(`/repository/${owner}/${repo}`);
+  };
   return (
     <>
-      {repositories?.map((repo) => (
-        <RepositoryListItem
-          style={{ margin: 10, border: "2px solid #CCCCFF", padding: 5 }}
-          onClick={() => console.log("go to page")}
-        >
-          <p>
-            Name: {repo?.name}, Number of Stars: {repo?.stargazers_count},
-            Number of Forks: {repo?.forks_count}, Owner's name:{" "}
-            {repo?.owner?.login}, Owner's Avatar:{" "}
-            <img width={50} height={50} src={`${repo?.owner?.avatar_url}`} />{" "}
-          </p>
-          <Link to={`/repository/${repo?.owner?.login}/${repo?.name}`}>
-            View
-          </Link>
-          <br />
-        </RepositoryListItem>
-      ))}
+      {loading ? (
+        <LoaderWrapper>
+          <ClipLoader color="#58a6ff" size={50} />
+        </LoaderWrapper>
+      ) : (
+        <>
+          <RepoTable>
+            <thead>
+              <tr>
+                <RepoHeader>Owner</RepoHeader>
+                <RepoHeader>Repository</RepoHeader>
+                <RepoHeader>Stars</RepoHeader>
+                <RepoHeader>Forks</RepoHeader>
+              </tr>
+            </thead>
+            <tbody>
+              {repositories.map((repo) => (
+                <RepoRow
+                  key={repo.id}
+                  onClick={() => handleRowClick(repo?.owner?.login, repo?.name)}
+                >
+                  <RepoCell>
+                    <AvatarImage
+                      src={repo.owner.avatar_url}
+                      alt={repo.owner.login}
+                    />
+                    {repo.owner.login}
+                  </RepoCell>
+                  <RepoCell>{repo.name}</RepoCell>
+                  <RepoCell>{repo.stargazers_count}</RepoCell>
+                  <RepoCell>{repo.forks_count}</RepoCell>
+                </RepoRow>
+              ))}
+            </tbody>
+          </RepoTable>
 
-      <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
-        {renderPagination(page, changePage, totalPages)}
-      </div>
+          <PaginationWrapper>
+            {renderPagination(page, changePage, totalPages)}
+          </PaginationWrapper>
+        </>
+      )}
     </>
   );
 };
