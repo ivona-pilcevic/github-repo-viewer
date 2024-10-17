@@ -19,16 +19,51 @@ export interface DropdownProps {
   label: string;
 }
 
+export interface Repository {
+  id: number;
+  name: string;
+  owner: {
+    login: string;
+    avatar_url: string;
+    [key: string]: any;
+  };
+  stargazers_count: number;
+  forks_count: number;
+  [key: string]: any;
+}
+
 export interface RepositoryListProps {
-  repositories: any[];
+  repositories: Repository[];
   page: number;
   changePage: (newPage: number) => void;
   totalPages: number;
   loading: boolean;
 }
 
+export interface RepositoryDetails {
+  id: number;
+  name: string;
+  owner: {
+    login: string;
+    avatar_url: string;
+    [key: string]: any; 
+  };
+  stargazers_count: number;
+  forks_count: number;
+  open_issues_count: number;
+  languages: { [language: string]: number };
+  contributors: Contributor[]; 
+  [key: string]: any; 
+}
+
+export interface Contributor {
+  login: string;
+  avatar_url: string;
+  contributions: number;
+  [key: string]: any; 
+}
 export interface RepositoryDetailsProps {
-  repositoryDetails: any;
+  repositoryDetails: RepositoryDetails;
   contributors: any[];
-  appliedLanguages: Record<string, number> | null;
+  appliedLanguages: { [language: string]: number };
 }

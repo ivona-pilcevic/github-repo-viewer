@@ -8,9 +8,12 @@ import { useParams } from "react-router-dom";
 import RepoDetails from "../components/RepoDetails";
 import { ClipLoader } from "react-spinners";
 import { LoaderWrapper } from "../styles/wrappers";
+import { RepositoryDetails as IRepositoryDetails } from "../types/types";
 
 const RepositoryDetails: React.FC = () => {
-  const [repoDetails, setRepoDetails] = useState<any>(null);
+  const [repoDetails, setRepoDetails] = useState<IRepositoryDetails | null>(
+    null
+  );
   const [contributorList, setContributorList] = useState<any[]>([]);
   const [appliedLanguages, setAppliedLanguages] = useState<
     Record<string, number>
